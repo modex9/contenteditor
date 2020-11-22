@@ -2,7 +2,8 @@
 
 class contenteditor extends Module {
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->version = '1.0';
         $this->name = $this->l('contenteditor');
         $this->author = 'Modestas Slivinskas';
@@ -35,5 +36,19 @@ class contenteditor extends Module {
             "PRIMARY KEY (`id_content_history`)
             ) DEFAULT CHARSET=utf8";
         return Db::getInstance()->execute($sql);
+    }
+
+    public function getDbTables()
+    {
+        $sql = "SHOW TABLES;";
+        $tables = Db::getInstance()->executeS($sql);
+        return $tables;
+    }
+
+    public function getTableDescription($table)
+    {
+        $sql = "DESCRIBE " . $table;
+        $table_description = Db::getInstance()->executeS($sql);
+        return $table_description;
     }
 }
