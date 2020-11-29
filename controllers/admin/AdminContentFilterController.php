@@ -2,11 +2,17 @@
 
 class AdminContentFilterController extends ModuleAdminController
 {
+    public function setMedia($isNewTheme = false)
+    {
+        parent::setMedia($isNewTheme);
+        $this->addCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+        $this->addJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js");
+        $this->addJS(__PS_BASE_URI__ . "modules/" . $this->module->name . "/views/js/admin/admin.js");
+    }
+
 
     public function initContent()
     {
-        $this->addCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
-        $this->addJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js");
         $tables = $this->module->getDbTables();
         $table_name_id = "Tables_in_" . _DB_NAME_;
         $table_descriptions = [];

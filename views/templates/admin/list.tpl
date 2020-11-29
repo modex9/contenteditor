@@ -5,7 +5,7 @@
                 {assign var='table_name' value=$table.$table_name_id}
                 {counter assign='id'}
                 <div class="col-lg-6 border border-success p-3">
-                    <input type="checkbox">
+                    <input id="main-table-check-{$id}" type="checkbox">
                     <a class="d-inline" data-toggle="collapse" href="#table-fields-{$id}" role="button">{$table_name}</a>
                     <div id="table-fields-{$id}" class="collapse container col-lg-12">
                         <div class="row">
