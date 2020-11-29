@@ -1,6 +1,10 @@
 <?php
 
-class contenteditor extends Module {
+require 'vendor/autoload.php';
+
+use Classes\PrototypeModule;
+
+class contenteditor extends PrototypeModule {
 
     public function __construct()
     {
