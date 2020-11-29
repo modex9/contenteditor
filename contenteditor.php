@@ -6,6 +6,8 @@ use Classes\PrototypeModule;
 
 class contenteditor extends PrototypeModule {
 
+    public static $excluded_tables;
+
     public function __construct()
     {
         $this->version = '1.0';
@@ -19,6 +21,15 @@ class contenteditor extends PrototypeModule {
         $this->tabs = [
             ['name'=>$this->l('Content Editor'), 'class_name' => 'AdminContentFilter', 'id_parent' => 0,  'active' => true]
         ];
+        //todo: user excludes table himself?
+        if(!isset(self::$excluded_tables))
+        {
+            $tables = ['access', 'admin_filter', 'advice', 'alias', 'attribute', 'authorization_role', 'attribute_shop', 'badge',
+                'badge_lang', 'carrier', 'carrier_shop', 'gender', 'guest', 'hook', 'image', 'image_type', 'layered_filter', 'layered_filter_block', 'zone'];
+            self::$excluded_tables = array_map(function($el) {
+                return _DB_PREFIX_ . $el;
+            }, $tables);
+        }
     }
 
     public function install()
@@ -48,7 +59,7 @@ class contenteditor extends PrototypeModule {
 
     public function getDbTables()
     {
-        $sql = "SHOW TABLES;";
+        $sql = "SHOW TABLES FROM " . _DB_NAME_ . ' WHERE `Tables_in_' . _DB_NAME_ . "` NOT IN ('". implode('\',\'', self::$excluded_tables). "')";
         $tables = Db::getInstance()->executeS($sql);
         return $tables;
     }
