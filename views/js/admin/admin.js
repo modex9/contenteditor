@@ -1,4 +1,6 @@
 $(document).on('ready', () => {
+
+    //Mass check/uncheck of table columns.
     $("[id^='main-table-check-']").on('click', () => {
         const target = event.target;
         const targetID = target.id;
