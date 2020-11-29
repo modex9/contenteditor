@@ -16,6 +16,9 @@ class contenteditor extends PrototypeModule {
         $this->displayName =  $this->l('Content Editor');
         $this->description = $this->l('Module is used to edit content globally in your database.');
         $this->bootstrap = true;
+        $this->tabs = [
+            ['name'=>$this->l('Content Editor'), 'class_name' => 'AdminContentFilter', 'id_parent' => 0,  'active' => true]
+        ];
     }
 
     public function install()
@@ -25,8 +28,9 @@ class contenteditor extends PrototypeModule {
         return $res && parent::install();
     }
 
-    public function getContent() {
-
+    public function getContent()
+    {
+        Tools::redirectAdmin($this->context->link->getAdminLink('AdminContentFilter'));
     }
 
     public function installTable()
