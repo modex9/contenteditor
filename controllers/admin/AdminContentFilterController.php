@@ -16,9 +16,11 @@ class AdminContentFilterController extends ModuleAdminController
         $tables = $this->module->getDbTables();
         $table_name_id = "Tables_in_" . _DB_NAME_;
         $table_descriptions = [];
-        foreach ($tables as $table)
+        foreach ($tables as $key => $table)
         {
             $td = $this->module->getTableDescription($table[$table_name_id]);
+            if(empty($td))
+                unset($tables[$key]);
             foreach ($td as $t)
             {
                 $table_descriptions[$table[$table_name_id]][$t['Field']] = $t['Type'];

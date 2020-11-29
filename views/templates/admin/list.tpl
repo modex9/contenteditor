@@ -1,5 +1,6 @@
 <div class="container text-center">
     <button class="mb-3 btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false">Expand/Collapse All</button>
+    <p>Total tables: {$tables|count}</p>
     <form action="">
         <div class="row">
             {foreach $tables as $table}

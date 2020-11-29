@@ -7,6 +7,7 @@ use Classes\PrototypeModule;
 class contenteditor extends PrototypeModule {
 
     public static $excluded_tables;
+    public static $excluded_columns;
 
     public function __construct()
     {
@@ -29,6 +30,10 @@ class contenteditor extends PrototypeModule {
             self::$excluded_tables = array_map(function($el) {
                 return _DB_PREFIX_ . $el;
             }, $tables);
+        }
+        if(!isset(self::$excluded_columns))
+        {
+            self::$excluded_columns = ['int', 'tinyint', 'datetime', 'bigint', 'decimal', 'enum', 'timestamp'];
         }
     }
 
@@ -68,6 +73,17 @@ class contenteditor extends PrototypeModule {
     {
         $sql = "DESCRIBE " . $table;
         $table_description = Db::getInstance()->executeS($sql);
-        return $table_description;
+        $table_description_filtered = array_filter($table_description, [$this, 'filterExcludedTypes']);
+        return $table_description_filtered;
+    }
+
+    public function filterExcludedTypes($column)
+    {
+        foreach (self::$excluded_columns as $excl_col)
+        {
+            if(substr($column['Type'], 0, strlen($excl_col)) === $excl_col)
+                return false;
+        }
+        return true;
     }
 }
