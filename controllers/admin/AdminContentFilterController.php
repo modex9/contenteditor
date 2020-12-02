@@ -5,6 +5,11 @@ class AdminContentFilterController extends ModuleAdminController
     public function setMedia($isNewTheme = false)
     {
         parent::setMedia($isNewTheme);
+        Media::addJsDef(
+            [
+                'query_controller' => $this->context->link->getModuleLink($this->module->name, 'query'),
+            ]
+        );
         $this->addCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
         $this->addJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js");
         $this->addJS(__PS_BASE_URI__ . "modules/" . $this->module->name . "/views/js/admin/admin.js");

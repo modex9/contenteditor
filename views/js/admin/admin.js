@@ -23,4 +23,19 @@ $(document).on('ready', () => {
             }
         }
     });
+
+    $('#content-query-form').on('submit', () => {
+        event.preventDefault();
+        const data = $('#content-query-form').serialize();
+       fetch(query_controller,
+           {
+               method : 'POST',
+               headers: {
+                   'Accept': 'application/json',
+                   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+               },
+               body : data,
+           }).then(data => data.json())
+             .then(data => $('#query-content').html('data'));
+        });
 });
