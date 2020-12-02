@@ -1,7 +1,7 @@
 <?php
 
 namespace Classes;
-use Tab, Module, Language;
+use Tab, Module, Language, Validate;
 
 abstract class PrototypeModule extends Module
 {

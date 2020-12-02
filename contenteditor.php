@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require _PS_MODULE_DIR_ . 'contenteditor/vendor/autoload.php';
 
 use Classes\PrototypeModule;
 
@@ -19,6 +19,7 @@ class contenteditor extends PrototypeModule {
         $this->displayName =  $this->l('Content Editor');
         $this->description = $this->l('Module is used to edit content globally in your database.');
         $this->bootstrap = true;
+        $this->controllers = ['query'];
         $this->tabs = [
             ['name'=>$this->l('Content Editor'), 'class_name' => 'AdminContentFilter', 'id_parent' => 0,  'active' => true]
         ];
