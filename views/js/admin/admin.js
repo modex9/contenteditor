@@ -36,6 +36,6 @@ $(document).on('ready', () => {
                },
                body : data,
            }).then(data => data.json())
-             .then(data => $('#query-content').html('data'));
+             .then(data => $('#query-content').html(data.query_results_table));
         });
 });

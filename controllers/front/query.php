@@ -29,16 +29,19 @@ class contenteditorQueryModuleFrontController extends ModuleFrontController
 
         // Run queries.
         $query_results = [];
-        foreach ($queries as $table => $table_queries)
-        {
-            foreach ($table_queries as $column => $query)
-            {
-                $query_results[$table][$column] = Db::getInstance()->executeS($query);
-            }
+
+        foreach ($queries as $table => $query) {
+            $query_results[$table] = Db::getInstance()->executeS($query);
         }
+        $this->context->smarty->assign(
+            [
+                'query_results' => $query_results,
+            ]
+        );
+
         header('Content-Type: application/json');
         die(json_encode([
-            'post' => $_POST,
+            'query_results_table' => $this->module->fetch("module:" . $this->module->name . "/views/templates/admin/query_result.tpl"),
         ]));
     }
 
@@ -53,12 +56,23 @@ class contenteditorQueryModuleFrontController extends ModuleFrontController
         $queries = [];
 
         // Need only the key - column.
-        foreach (array_keys($columns) as $column)
+        $query_start = "SELECT * FROM " . $table . " WHERE ";
+        $query_end = '';
+        if(!empty($columns))
         {
-            $queries[$column] = "SELECT " . $column . " FROM " . $table . " WHERE " . $column . " LIKE '%" . $query_string . "%'";
+            $length = count($columns);
+            $count = 1;
+            foreach (array_keys($columns) as $column)
+            {
+                $query_end .= $column . " LIKE '%" . $query_string . "%'";
+                if($count != $length)
+                    $query_end .= 'OR ';
+                $count++;
+            }
         }
+        $query = $query_start . $query_end;
 
-        return $queries;
+        return $query;
     }
 
     public function fetchContent($query)
