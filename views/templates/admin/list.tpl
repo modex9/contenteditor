@@ -4,7 +4,7 @@
     <form id="content-query-form">
         <div class="form-group">
             <label for="query">Query string:</label>
-            <input type="text" name="query">
+            <input id="query" type="text" name="query">
         </div>
         <input type="hidden" name="ajax" value="1">
         <button type="submit" class="btn btn-primary mb-3">{l s='Search' mod='contenteditor'}</button>

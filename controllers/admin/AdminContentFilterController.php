@@ -11,6 +11,7 @@ class AdminContentFilterController extends ModuleAdminController
             ]
         );
         $this->addCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+        $this->addCSS(__PS_BASE_URI__ . "modules/" . $this->module->name . "/views/css/admin/admin.css");
         $this->addJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js");
         $this->addJS(__PS_BASE_URI__ . "modules/" . $this->module->name . "/views/js/admin/admin.js");
     }
